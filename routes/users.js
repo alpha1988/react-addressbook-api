@@ -58,10 +58,11 @@ router.post('/', function (req, res, next) {
 router.put('/:id', function (req, res, next) {
     try {
         const userId = req.params.id;
-        let userIndex = usersList.users.findIndex(({ id }) => id === userId);
+        let userIndex = usersList.users.findIndex(({ id }) => +id === +userId);
         usersList.users.splice(userIndex, 1, req.body);
 
-        res.status(201).json(newUser);
+        console.log('usersList : ',userIndex, usersList);
+        res.status(201).json(req.body);
     } catch (err) {
         res.json({ error: err.message || err.toString() });
     }
